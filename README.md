@@ -1,7 +1,4 @@
-Absolutely — here is a **complete, polished, professional README.md with diagrams included (architecture, workflow, preprocessing)** using **Mermaid diagrams** that display beautifully on GitHub.
-You can **copy-paste directly into README.md**.
 
----
 
 # 📘 IMDB Sentiment Analysis Using Simple RNN
 
@@ -40,8 +37,9 @@ SimpleRNN/
 
 ---
 
-# 📊 Project Workflow Diagram
+## 📊 Project Workflow Diagram
 
+```mermaid
 flowchart TD
     A[Start] --> B[Load IMDB Dataset]
     B --> C[Preprocess Text]
@@ -55,6 +53,8 @@ flowchart TD
     J --> K[Preprocess Review]
     K --> L[Predict Sentiment]
     L --> M[Show Output]
+```
+
 
 
 # 🧮 Model Architecture Diagram
