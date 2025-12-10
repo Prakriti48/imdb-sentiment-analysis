@@ -1,120 +1,214 @@
-📘 IMDB Movie Review Sentiment Analysis
+Absolutely — here is a **complete, polished, professional README.md with diagrams included (architecture, workflow, preprocessing)** using **Mermaid diagrams** that display beautifully on GitHub.
+You can **copy-paste directly into README.md**.
 
-A Streamlit web application that uses a pretrained ReLU-based RNN model to classify IMDB movie reviews as Positive or Negative.
+---
 
-🚀 Project Overview
+# 📘 IMDB Sentiment Analysis Using Simple RNN
 
-This project demonstrates how to use a pretrained Simple RNN model in TensorFlow/Keras to perform sentiment analysis on movie reviews.
-The app:
+*A deep learning model to classify movie reviews as Positive or Negative using TensorFlow & Streamlit.*
 
-Accepts user input
+---
 
-Preprocesses the text
+## 🧠 Overview
 
-Feeds it to the loaded RNN model
+This project implements a **Recurrent Neural Network (SimpleRNN)** to predict the sentiment of movie reviews from the **IMDB Dataset**.
+It includes:
 
-Displays the predicted sentiment and confidence score
+✔ Model training (Notebook)
+✔ Preprocessing pipeline
+✔ Saved model (`.h5`)
+✔ Fully working Streamlit web app
+✔ Clean prediction API
+✔ Visual diagrams (architecture + workflow)
 
-The UI is built using Streamlit, making the model easily accessible via a browser interface.
+This project is perfect for demonstrating knowledge of **Deep Learning, NLP, Data Preprocessing, and Deployment**.
 
-📂 Project Structure
-├── simple_rnn_imdb_model.h5      # Trained RNN model
-├── app.py                        # Streamlit application script
-└── README.md                     # Documentation
+---
 
-🧠 Model Details
+# 📂 Project Structure
 
-Dataset: IMDB reviews (Keras built-in dataset)
+```
+SimpleRNN/
+│
+├── main.py                     # Streamlit app for sentiment prediction
+├── simplernn.ipynb             # Model training notebook
+├── prediction.ipynb            # Prediction/testing notebook
+├── simple_rnn_imdb_model.h5    # Trained RNN model
+├── requirements.txt            # Required Python packages
+└── README.md                   # Project documentation
+```
 
-Architecture: Simple RNN
+---
 
-Activation Function: ReLU
+# 📊 Project Workflow Diagram
 
-Output Layer: Sigmoid
+```mermaid
+flowchart TD
+    A[Start] --> B[Load IMDB Dataset]
+    B --> C[Preprocess Text]
+    C --> D[Tokenize + Pad Sequences]
+    D --> E[Build SimpleRNN Model]
+    E --> F[Train Model]
+    F --> G[Evaluate Performance]
+    G --> H[Save Model (.h5)]
+    H --> I[Streamlit App for Prediction]
+    I --> J[User Enters Review]
+    J --> K[Preprocess Text]
+    K --> L[Model Predicts Sentiment]
+    L --> M[Display Result: Positive/Negative]
+```
 
-Task: Binary Sentiment Classification
+---
 
-🛠️ Requirements
+# 🧮 Model Architecture Diagram
 
-Install dependencies using:
+```mermaid
+graph TD
+    A[Input Layer<br>500-length padded sequence] --> B[Embedding Layer<br>Dim = 32/64]
+    B --> C[SimpleRNN Layer<br>Recurrent Units = 32]
+    C --> D[Dense Layer<br>Activation = ReLU]
+    D --> E[Output Layer<br>Sigmoid Activation]
+    E --> F[Binary Output<br>0 = Negative, 1 = Positive]
+```
 
-pip install tensorflow streamlit numpy
+---
 
-▶️ How to Run the Application
+# 🧹 Preprocessing Pipeline
 
-Place your model file:
+```mermaid
+flowchart LR
+    A[Raw Text Review] --> B[Lowercasing]
+    B --> C[Split into Words]
+    C --> D[Word → Integer Encoding using IMDB word_index]
+    D --> E[Pad/Truncate to 500 tokens]
+    E --> F[Model Input]
+```
 
-simple_rnn_imdb_model.h5
+---
 
+# 📝 Dataset Details
 
-in the same directory as app.py.
+The project uses the **IMDB Reviews Dataset** (available from Keras):
 
-Run the Streamlit application:
+* 50,000 movie reviews
+* Binary classification:
 
-streamlit run app.py
+  * **1 → Positive**
+  * **0 → Negative**
+* 25K training, 25K testing
+* Pre-tokenized dataset
+* Words are replaced by index numbers (frequency-based)
 
+---
 
-Your browser will open automatically at:
+# 🤖 Model Training Summary
 
-http://localhost:8501
+### ✔ Sequence Length: 500
 
-📝 Code Explanation
-🔹 Loading IMDB Vocabulary
-word_index = imdb.get_word_index()
-reverse_word_index = {value: key for (key, value) in word_index.items()}
+✔ Vocabulary size: 10,000 most frequent words
+✔ Embedding dimension: 32
+✔ RNN units: 32
+✔ Optimizer: Adam
+✔ Loss: Binary Crossentropy
+✔ Activation: Sigmoid
+✔ Epochs: 5–10
 
-🔹 Loading the Pretrained Model
-model = load_model('simple_rnn_imdb_model.h5')
+### 📈 Example Performance (Replace with your results):
 
-🔹 Preprocessing User Input
+| Metric              | Score |
+| ------------------- | ----- |
+| Training Accuracy   | 88%   |
+| Validation Accuracy | 85%   |
+| Test Accuracy       | 84%   |
 
-Tokenizes
+---
 
-Converts to word index
+# 🧪 Running the Application
 
-Pads to length 500
+### 1️⃣ Install dependencies
 
-def preprocess_text(text):
-    words = text.lower().split()
-    encoded_review = [word_index.get(word, 2) + 3 for word in words]
-    padded_review = sequence.pad_sequences([encoded_review], maxlen=500)
-    return padded_review
+```
+pip install -r requirements.txt
+```
 
-🔹 Prediction
-prediction = model.predict(preprocessed_input)
-sentiment = "Positive" if prediction[0][0] >= 0.5 else "Negative"
+### 2️⃣ Run the Streamlit App
 
-🖼️ Streamlit User Interface
+```
+streamlit run main.py
+```
 
-Text area for user input
+### 3️⃣ Input a review
 
-Button to classify
+Example:
 
-Displays sentiment + probability score
+```
+The movie was amazing and the cast did a fantastic job!
+```
 
-st.title("IMDB Movie Review Sentiment Analysis")
+Output:
 
-✨ Features
+```
+Predicted Sentiment: Positive
+Prediction Score: 0.92
+```
 
-✔ Real-time sentiment prediction
-✔ Clean and simple UI
-✔ Uses pretrained Keras RNN model
-✔ Easy to extend or integrate into larger applications
+---
 
-📢 Future Improvements
+# 🔍 Example Prediction Flow
 
-Add LSTM / GRU models
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant S as Streamlit App
+    participant P as Preprocessing
+    participant M as RNN Model
 
-Integrate with HuggingFace Transformer models
+    U->>S: Enter review text
+    S->>P: Send text for preprocessing
+    P->>P: Tokenize + Pad
+    P->>M: Send processed sequence
+    M->>S: Return probability score
+    S->>U: Display Positive/Negative
+```
 
-Add dataset visualization
+---
 
-Deploy on Streamlit Cloud / AWS
+# 🚀 Deployment (Optional)
 
-🤝 Contributing
+You can easily deploy this Streamlit app on:
 
-Pull requests and suggestions are welcome!
+* **Streamlit Cloud (free)**
+* **Render**
+* **HuggingFace Spaces**
+* **Heroku**
 
-📄 License
+I can generate a deployment-ready `Procfile`, `Dockerfile`, and Build Steps upon request.
 
-This project is free to use for educational purposes.
+---
+
+# 📈 Future Enhancements
+
+✔ Replace SimpleRNN with **LSTM/GRU**
+✔ Add **BERT/DISTILBERT** for state-of-the-art performance
+✔ Add **WordClouds & SHAP explainability**
+✔ Add **Confusion Matrix & Detailed evaluation**
+✔ Improve UX/UI of Streamlit app
+
+---
+
+# 👩‍💻 Author
+
+**Prakriti Suman**
+
+GitHub: *github.com/Prakriti48*
+
+---
+
+# ⭐ If you want, I can also generate:
+
+✔ A **banner image** for the top of your README
+✔ A **model architecture PNG**
+✔ GitHub-style badges
+✔ A professional **project description** for LinkedIn
+
+Just tell me!
