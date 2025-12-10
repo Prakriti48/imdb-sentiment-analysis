@@ -42,23 +42,20 @@ SimpleRNN/
 
 # 📊 Project Workflow Diagram
 
-```mermaid
 flowchart TD
     A[Start] --> B[Load IMDB Dataset]
     B --> C[Preprocess Text]
-    C --> D[Tokenize + Pad Sequences]
-    D --> E[Build SimpleRNN Model]
+    C --> D[Tokenize and Pad]
+    D --> E[Build RNN Model]
     E --> F[Train Model]
-    F --> G[Evaluate Performance]
-    G --> H[Save Model (.h5)]
-    H --> I[Streamlit App for Prediction]
-    I --> J[User Enters Review]
-    J --> K[Preprocess Text]
-    K --> L[Model Predicts Sentiment]
-    L --> M[Display Result: Positive/Negative]
-```
+    F --> G[Evaluate Model]
+    G --> H[Save Model]
+    H --> I[Launch Streamlit App]
+    I --> J[User Inputs Review]
+    J --> K[Preprocess Review]
+    K --> L[Predict Sentiment]
+    L --> M[Show Output]
 
----
 
 # 🧮 Model Architecture Diagram
 
